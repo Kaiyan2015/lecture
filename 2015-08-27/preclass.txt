@@ -7,6 +7,23 @@
     according to Amdahl's law for up to 128 cores.  If you know how,
     you should use a script to produce this plot, with both the serial
     fraction and the maximum number of cores as parameters.
+    
+    According to Amdahl's law, we have
+    S(p) <= 1/(a + (1 - a)/p),
+    where a is the fraction of serial work, and p is the number of processors.
+    
+    In this case, S(p) <= 1/(0.1+ 0.9/p), p<=128.
+    
+    Use matlab to draw the figure (I don't know if it is OK to use matlab), the codes are:
+    p = zeros(1,128);
+    S = zeros(1,128);
+    for i = 1:128
+        S(i) = 1/(0.1 + 0.9/p(i));
+    end
+    
+    plot(p,S);
+
+
 
 2.  Suppose a particular program can be partitioned into perfectly
     independent tasks, each of which takes time tau.  Tasks are
