@@ -18,6 +18,29 @@ In practice, this took X time.  This includes
 Consider the following questions:
 
 1. What is a simple model that would predict this time?
+
+Time to start: T_s
+Time to count one person in a row: T_c
+Number of seats in one row: m
+Time for the instructor to gather one count: T_g
+Number of rows: n
+Time for instructor to do the one add: T_a
+
+x1 = T_s + m*T_c + n*T_g + n*T_a
+
+This prediction assumes uniform distribution of seats in each row.
+
+
 2. What about a simple model to predict time for one person to count?
+
+x2 = T_s + m*n*T_c
+
+
 3. How big should the class be before the parallel method takes less time?
+
+x1 < x2
+
+=> T_s + m*T_c + n*T_g + n*T_a < T_s + m*n*T_c
+
+=> n > m*T_c/ (m*T_c - T_g - T_a), only when m*T_c > T_g + T_a, which is supposed to be true in real case
 
