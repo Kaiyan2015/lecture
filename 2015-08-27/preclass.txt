@@ -14,7 +14,7 @@
     
     In this case, S(p) <= 1/(0.1+ 0.9/p), p<=128.
     
-    Use matlab to draw the figure (I don't know if it is OK to use matlab), the codes are:
+    I use MATLAB to draw the figure (I don't know if it is OK to use matlab), the codes are:
     p = zeros(1,128);
     S = zeros(1,128);
     for i = 1:128
@@ -31,7 +31,18 @@
     central server; this takes an overhead time alpha per task.
     What is the theoretically achievable throughput (tasks/time)?
 
+    Theoretically achievable throughput: tasks/time = p/(p*alpha + tau).
+    
+    Since the serial time the central server equals p* alpha, and tau is the parallel working time for p workers. So the total time is p*alpha + tau.
+
+
 3.  Under what circumstances is it best to not tune?
+    1. Tuning takes human time. If the human time is more expensive than the computation time saved, it’s not worth it
+    2. Performance is often in tension with maintainability, generality, and other nice software design properties. If tuning for performance means making a mess of the code base, it may not be worth it.
+    3. Most codes have bottlenecks where the majority of the time is spent. It doesn’t make sense to tune something that already takes little time.
+    From pre-reading materials
+
+
 
 4.  The class cluster consists of eight nodes and fifteen Xeon Phi
     accelerator boards.  Based on an online search for information on
@@ -41,4 +52,27 @@
     in your calculation.  (We will return to this question again after
     we cover some computer architecture.)
     
+    2 flops/FMA
+    *8 FMA/vector
+    *2 vector FMAs/cycle
+    *996 cores(totally)
+    *1.053GHz
+    = 33561 GFlop/s = 33.6 TFlop/s
+    
+    parameters: http://ark.intel.com/products/71992/Intel-Xeon-Phi-Coprocessor-5110P-8GB-1_053-GHz-60-core
+
+
 5.  What is the approximate theoretical peak flop rate for your own machine?
+
+    2 flops/FMA
+    *4 FMA/vector
+    *2 vector FMAs/cycle
+    *4 cores
+    *3.4GHz
+    = 217.6 GFlop/s
+	
+
+
+
+
+
