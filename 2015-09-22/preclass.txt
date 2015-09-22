@@ -1,7 +1,12 @@
 0.  How much time did you spend on this pre-class exercise, and when?
+1hr40mins. Started from 0:00 am Sep 22.	
+
 
 1.  What are one or two points that you found least clear in the
     9/22 slide decks (including the narration)?
+	
+	The termination criteria of Monte Carlo, especially the way errbar is used. 
+
 
 2.  The pthread_mc.c file in the demo subdirectory runs a Monte Carlo
     simulation to estimate the expected value of a uniform random
@@ -13,16 +18,42 @@
        time per trial (t_trial), and time to update the global
        counters in the critical section (t_update).
 
+	if the batch number is b, we have 
+
+	N/p*t_trial +  N/(p*b)*t_update
+
     b) Run the code with a few different parameter values in order
        to estimate N, t_trial, and t_update for this code on
        a totient compute node.
+	
+	
+-p 10 -b 10:     10 threads (pthreads): 0.500355 (0.000288754): 4.160900e-02 s, 1000100 trials
+-p 10 -b 100:    10 threads (pthreads): 0.500243 (0.000288625): 5.075000e-03 s, 1001000 trials
+-p 10 -b 1000:   10 threads (pthreads): 0.500226 (0.000287356): 1.643000e-03 s, 1010000 trials
+-p 10 -b 500:    10 threads (pthreads): 0.500207 (0.000288077): 1.616000e-03 s, 1005000 trials	
+-p 10 -b 300:    10 threads (pthreads): 0.50019 (0.000288379): 1.667000e-03 s, 1002900 trials
+-p 10 -b 800:    10 threads (pthreads): 0.500267 (0.000287631): 1.661000e-03 s, 1008000 trials
+-p 10 -b 900:    10 threads (pthreads): 0.500367 (0.000287502): 1.702000e-03 s, 1008900 trials
+-p 10 -b 15000:  10 threads (pthreads): 0.500348 (0.000270548): 1.994000e-03 s, 1140000 trials
+
+
+-p 30 -b 1000:   30 threads (pthreads): 0.500138 (0.000284425): 1.269000e-03 s, 1030000 trials
+-p 30 -b 500:    30 threads (pthreads): 0.500076 (0.000286464): 1.536000e-03 s, 1015000 trials
+-p 30 -b 800:    30 threads (pthreads): 0.500204 (0.000285227): 1.327000e-03 s, 1024000 trials
+-p 30 -b 2000:   30 threads (pthreads): 0.500128 (0.000280385): 1.267000e-03 s, 1060000 trials
+-p 30 -b 3000:   30 threads (pthreads): 0.500257 (0.000276663): 1.322000e-03 s, 1089000 trials
 
     c) Based on your model, suggest a strategy for choosing the batch
        size.  How might you generalize this strategy to automatically
        choose batch sizes for different types of computational
        experiments?
+
+It takes longer time to sync with more threads, so my suggestion is the more threads you have, the bigger batch size you choose.
+
+
     
 3.  In the workq subdirectory of this directory, there is a basic work
     queue implementation.  Following the strategy outlined in the
     slides, add synchronization calls in the locations marked TODO.
     You should run the code to make sure it behaves as expected!
+
